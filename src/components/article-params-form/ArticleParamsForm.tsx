@@ -40,6 +40,7 @@ export const ArticleParamsForm = ({
 
 	const resetForm = () => {
 		setForm(defaultArticleState);
+		applyNewState(defaultArticleState);
 	};
 
 	const toggleForm: OnClick = () => {
