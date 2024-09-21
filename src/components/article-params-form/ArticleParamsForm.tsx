@@ -18,7 +18,8 @@ import {
 import { RadioGroup } from 'components/radio-group';
 import { Separator } from 'components/separator';
 import { clsx } from 'clsx';
-import { useOutsideClickClose } from 'components/select/hooks/useOutsideClickClose';
+import { Text } from 'components/text';
+import { useClose } from 'components/select/hooks/useClose';
 
 interface ArticleParamsFormProps {
 	applyNewState: (newState: ArticleStateType) => void;
@@ -55,11 +56,10 @@ export const ArticleParamsForm = ({
 		applyNewState(form);
 	};
 
-	useOutsideClickClose({
+	useClose({
 		isOpen: isMenuOpen,
+		onClose: toggleForm,
 		rootRef: formRef,
-		onClose: () => setIsMenuOpen(false),
-		onChange: setIsMenuOpen,
 	});
 
 	return (
@@ -70,19 +70,10 @@ export const ArticleParamsForm = ({
 					[styles.container]: true,
 					[styles.container_open]: isMenuOpen,
 				})}>
-				<form
-					className={styles.form}
-					onSubmit={handleSubmit}
-					style={{ gap: '50px' }}>
-					<h2
-						style={{
-							fontFamily: 'Open Sans',
-							fontSize: '31px',
-							fontWeight: '800',
-							lineHeight: '42.22px',
-						}}>
+				<form className={styles.form} onSubmit={handleSubmit}>
+					<Text as='h2' size={31} weight={800} dynamic={false} uppercase={true}>
 						Задайте параметры
-					</h2>
+					</Text>
 					<Select
 						title={'Шрифт'}
 						selected={form.fontFamilyOption}
